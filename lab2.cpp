@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -70,61 +70,51 @@ int main()
     std::queue<int> ver;
     ver.push(dano - 1);
 
-    int d[N];
-    for (int i = 0; i < N; i++) {
-        d[i] = 0;
-    }
-    std::vector <int> path[N];
-    for (int j = 0; j < N; j++) {
-        path[j].push_back(dano);
-    }
 
+
+    int path[N];
+    for (int i = 0; i < N; i++) {
+        path[i] = 0;
+    }
 
     while (!ver.empty()) {
-
         int n = ver.front();
         ver.pop();
-       v[n] = 2;
-       for (int i = 0; i < N; i++) {
-           if (mas[n][i] == 1) {
-               if (v[i] ==0) {
-                   v[i] = 1;
-                   ver.push(i);
-                   d[i] = d[n] + 1;
-                   for (int j = i; j < N; j++) {
-                       path[j].push_back(n+1);
-                   }
+        v[n] = 1;
+        for (int i = 0; i < N; i++) {
+            if (mas[n][i] == 1) {
+                if (v[i] == 0) {
+                    v[i] = 2;
+                    path[i] = n + 1;
+                    ver.push(i);
+                }
+              
 
-               }
-
-           }
-       }
-
+            }
+        }
     }
 
 
- 
+    for (int i = 1; i < N + 1; i++) {
+        int nedd = i;
+        int z = nedd - 1;
 
-    for (int i = 0; i < N; i++) {
-        int yy = 0;
-        int ppp;
-        for (int j = 0; j < path[i].size(); j++) {
-
-          if (yy != path[i][j]) {
-                std::cout << path[i][j];
-                ppp = path[i][j];
-                if (path[i][j] != i + 1) {
-                    std::cout << " -> ";
-                }
+        std::cout << nedd << " ";
+        while (1) {
+            if (z != dano - 1) {
+                std::cout << "<- ";
+                std::cout << path[z] << " ";
+                z = path[z] - 1;
             }
-            yy = path[i][j];
+            else {
+
+                break;
+            }
 
 
-        }
-        if (ppp != i + 1) {
-            std::cout << i + 1;
         }
         std::cout << std::endl;
     }
+
 
 }
